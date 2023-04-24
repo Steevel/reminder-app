@@ -1,4 +1,4 @@
-import { DevTool } from "@hookform/devtools";
+// import { DevTool } from "@hookform/devtools";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,7 +11,7 @@ const LoginPage = () => {
   const context = useContext(UserContext);
   const {
     register,
-    control,
+    // control,
     handleSubmit,
     formState: { errors },
   } = useForm();
@@ -141,7 +141,7 @@ const LoginPage = () => {
               </div>
             </div>
           </form>
-          <DevTool control={control} />
+          {/* <DevTool control={control} /> */}
         </div>
       </div>
     </div>

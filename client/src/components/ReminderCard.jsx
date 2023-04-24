@@ -1,22 +1,19 @@
 /* eslint-disable react/prop-types */
 import Axios from "axios";
 import { useState } from "react";
-
-const baseUrl = import.meta.env.VITE_BACKEND_URL;
+import { errorMessage, successMessage } from "../utils/toastOptions";
 
 const ReminderCard = ({ item, getAllReminders }) => {
   const [isChecked, setIsChecked] = useState(item.isCompleted);
-  console.log(item);
-  console.log(isChecked);
 
   // Delete a reminder
   const deleteReminder = async (id) => {
     try {
-      const res = await Axios.delete(`/reminder/delete/${id}`);
-      console.log(res);
+      const { data } = await Axios.delete(`/reminder/delete/${id}`);
+      successMessage(data.message);
       getAllReminders();
     } catch (error) {
-      console.log(error);
+      errorMessage("Unable to delete reminder. Please try again");
     }
   };
 
@@ -26,13 +23,13 @@ const ReminderCard = ({ item, getAllReminders }) => {
     setIsChecked(checked);
 
     try {
-      const res = await Axios.put(`${baseUrl}/reminder/completed/${id}`, {
+      const { data } = await Axios.put(`/reminder/completed/${id}`, {
         checked,
       });
-      console.log("res", res);
+      successMessage(data.message);
       getAllReminders();
     } catch (error) {
-      console.log(error);
+      errorMessage("Unable to delete reminder. Please try again");
     }
   };
 

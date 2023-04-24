@@ -1,17 +1,18 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { DevTool } from "@hookform/devtools";
+// import { DevTool } from "@hookform/devtools";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import auth from "../config/firebaseConfig";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import { successMessage } from "../utils/toastOptions";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
   const context = useContext(UserContext);
   const {
     register,
-    control,
+    // control,
     handleSubmit,
     formState: { errors },
   } = useForm();
@@ -37,6 +38,7 @@ const RegisterPage = () => {
 
   if (context.user?.uid) {
     navigate("/home");
+    successMessage("Signed up successfully");
   }
 
   return (
@@ -140,7 +142,7 @@ const RegisterPage = () => {
               </div>
             </div>
           </form>
-          <DevTool control={control} />
+          {/* <DevTool control={control} /> */}
         </div>
       </div>
     </div>

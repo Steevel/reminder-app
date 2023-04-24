@@ -2,6 +2,7 @@
 import { useContext, useState } from "react";
 import Axios from "axios";
 import { UserContext } from "../context/UserContext";
+import { errorMessage, successMessage } from "../utils/toastOptions";
 
 const CreateReminder = ({ getAllReminders }) => {
   const context = useContext(UserContext);
@@ -12,23 +13,21 @@ const CreateReminder = ({ getAllReminders }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = context.user?.email;
-    console.log(name, date, time, email);
 
     if (!name && !date && !time) {
       alert("Please fill all the required fields");
     } else {
-      console.log(name, date, time);
       try {
-        const res = await Axios.post(`/reminder/add`, {
+        const { data } = await Axios.post(`/reminder/add`, {
           name,
           date,
           time,
           email,
         });
-        console.log(res);
+        successMessage(data.message);
         getAllReminders();
       } catch (error) {
-        console.log(error.message);
+        errorMessage("Unable to create reminder. Please try again");
       }
     }
   };

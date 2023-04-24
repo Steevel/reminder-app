@@ -6,17 +6,20 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import { UserContext } from "./context/UserContext";
 import { useState } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Axios from "axios";
 
 Axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
 function App() {
   const [user, setUser] = useState(null);
-  console.log("user", user);
+
   return (
     <>
       <BrowserRouter>
         <UserContext.Provider value={{ user, setUser }}>
+          <ToastContainer />
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<LoginPage />} />
